@@ -13,7 +13,7 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 import org.junit.jupiter.params.provider.ValueSource
 
-class ShoppingCartTest{
+class ShoppingCartTest {
     private lateinit var cart: ShoppingCart
 
     @BeforeEach
@@ -58,7 +58,7 @@ class ShoppingCartTest{
 
 
     @ParameterizedTest
-   // @ValueSource(ints = [0,1,2,4,5,6])
+    // @ValueSource(ints = [0,1,2,4,5,6])
     @CsvSource(
         "3,15.0",
         "0,0.0",
@@ -82,7 +82,21 @@ class ShoppingCartTest{
         val priceSum = cart.getTotalCost()
 
         // ASSERTION
-       // assertThat(priceSum).isEqualTo(quantity * 5.0)
+        // assertThat(priceSum).isEqualTo(quantity * 5.0)
         assertThat(priceSum).isEqualTo(expectedPriceSum)
+    }
+
+    @Test
+    fun `isValid product return invalid for invalid product`() {
+        val product = Product(
+            id = 200,
+            name = "Ice cream",
+            price = 5.0
+        )
+        cart.addProduct(product, 5)
+        val toPriseSum = cart.getTotalCost()
+        assertThat(toPriseSum).isEqualTo(0)
+
+
     }
 }
